@@ -41,7 +41,7 @@
     input.setAttribute('aria-invalid', message ? 'true' : 'false');
   }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     let isValid = true;
     fieldSelectors.forEach((name) => {
       const input = form.querySelector(`[name="${name}"]`);
@@ -64,9 +64,50 @@
     }
 
     e.preventDefault();
-    // Simulate success (replace with real backend integration)
-    form.reset();
-    alert('Thanks! Your message has been sent.');
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton ? submitButton.textContent : '';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          message: form.message.value.trim(),
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        // Apply field-level errors if provided
+        if (data && data.errors) {
+          Object.entries(data.errors).forEach(([key, msg]) => {
+            const input = form.querySelector(`[name="${key}"]`);
+            if (input) setError(input, String(msg));
+          });
+        }
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      form.reset();
+      alert('Thanks! Your message has been sent.');
+    } catch (err) {
+      alert('Sorry, something went wrong. Please try again later.');
+      // eslint-disable-next-line no-console
+      console.error(err);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText || 'Send';
+      }
+    }
   });
 })();
 
