@@ -3,8 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Your Name · Portfolio</title>
-    <meta name="description" content="Portfolio of Your Name — Software Developer" />
+    <title>Abhimanyu Kumar · Portfolio</title>
+    <meta name="description" content="Portfolio of Abhimanyu Kumar — Software Developer in Kolkata, India" />
+    <meta name="theme-color" content="#0b0c10" />
+    <meta property="og:title" content="Abhimanyu Kumar · Portfolio" />
+    <meta property="og:description" content="Software Developer in Kolkata, India — projects, skills, and contact." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="assets/images/hero.jpg.avif" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Abhimanyu Kumar · Portfolio" />
+    <meta name="twitter:description" content="Software Developer — projects, skills, and contact." />
+    <meta name="twitter:image" content="assets/images/hero.jpg.avif" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="canonical" href="/" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; connect-src 'self';" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,15 +26,26 @@
       rel="stylesheet"
     />
 
+     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
    <body>
+    <a class="skip-link" href="#home">Skip to content</a>
      <canvas id="bg-canvas" aria-hidden="true"></canvas>
+     <div class="bg-decor" aria-hidden="true">
+       <span class="blob b1"></span>
+       <span class="blob b2"></span>
+       <span class="blob b3"></span>
+     </div>
     <header class="site-header">
-      <a class="logo" href="#home" aria-label="Go to home">YN</a>
+      <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__bar"></div></div>
+      <a class="logo" href="#home" aria-label="Abhimanyu home">
+        <img class="logo-img" src="assets/images/logo.svg" alt="Abhimanyu" width="140" height="32" />
+      </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
       <nav id="nav" class="site-nav" aria-label="Primary">
         <ul>
+          <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -30,52 +54,148 @@
       </nav>
     </header>
 
-    <main id="home">
+    <main id="home" role="main">
       <section class="hero" aria-label="Hero">
-        <div class="hero-content container">
-          <h1>Hi, I'm Abhimanyu</h1>
-          <p>Software Developer specializing in building modern, accessible web applications.</p>
-          <div class="actions">
-            <a class="btn primary" href="#projects">View Projects</a>
-            <a class="btn" href="mailto:you@example.com">Contact Me</a>
+        <div class="hero-content container hero-grid" data-reveal>
+          <div class="hero-copy" data-reveal>
+            <h1 class="gradient-text">Hi, I'm Abhimanyu</h1>
+            <p>Software Developer specializing in building modern, accessible web applications.</p>
+            <div class="actions">
+              <a class="btn primary" href="#projects">View Projects</a>
+              <a class="btn" href="mailto:abhimanyuka12@gmail.com">Contact Me</a>
+            </div>
           </div>
+          <figure class="hero-media" aria-hidden="true">
+              <picture>
+               <source
+                 srcset="assets/images/hero.jpg.avif 1200w, assets/images/hero.jpg.avif 1600w"
+                 type="image/avif" />
+               <source
+                 srcset="assets/images/hero.jpg 1200w, assets/images/hero.jpg 1600w"
+                 type="image/jpeg" />
+               <img
+                 src="assets/images/hero.jpg.avif?v=20250810-4"
+                 alt="Developer working at a laptop"
+                 width="1200"
+                 height="800"
+                 fetchpriority="high"
+                 decoding="async"
+                 sizes="(max-width: 900px) 92vw, 520px"
+                 onerror="this.onerror=null;this.src='assets/images/hero-illustration.svg'" />
+             </picture>
+          </figure>
         </div>
       </section>
 
       <section id="about" class="section">
-        <div class="container">
-          <h2>About</h2>
-          <p>
-            I’m a developer who loves turning complex problems into simple, beautiful
-            and intuitive solutions. I focus on performance, accessibility and clean
-            code.
-          </p>
+        <div class="container about-grid" data-reveal>
+          <figure class="about-media">
+            <picture>
+              <source srcset="assets/images/about.jpg.avif 800w, assets/images/about.jpg.avif 1200w" type="image/avif" />
+              <source srcset="assets/images/about.jpg 800w, assets/images/about.jpg 1200w" type="image/jpeg" />
+              <img src="assets/images/about.jpg.avif?v=20250810-4" alt="Portrait of Abhimanyu" width="800" height="800" decoding="async" sizes="(max-width: 900px) 92vw, 420px" onerror="this.onerror=null;this.src='assets/images/about-avatar.svg'" />
+            </picture>
+          </figure>
+          <div>
+            <h2>About</h2>
+            <p>
+              I’m a developer who loves turning complex problems into simple, beautiful
+              and intuitive solutions. I focus on performance, accessibility and clean
+              code.
+            </p>
+          </div>
         </div>
       </section>
 
       <section id="projects" class="section alt">
         <div class="container">
           <h2>Projects</h2>
-          <div class="grid projects-grid">
-            <article class="card">
-              <h3>Project One</h3>
-              <p>A brief description of your project, what it does and why it’s cool.</p>
+          <div class="grid projects-grid" id="projectsGrid" data-static="true">
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-1.jpg.avif 600w, assets/images/project-1.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-1.jpg 600w, assets/images/project-1.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-1.jpg.avif?v=20250810-4" alt="Web app dashboard preview" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>Analytics Dashboard</h3>
+              <p>Interactive visualizations and KPI tracking for business insights.</p>
               <div class="card-actions">
                 <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
                 <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
               </div>
             </article>
-            <article class="card">
-              <h3>Project Two</h3>
-              <p>Another short summary that highlights the tech stack and outcomes.</p>
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-2.jpg.avif 600w, assets/images/project-2.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-2.jpg 600w, assets/images/project-2.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-2.jpg.avif?v=20250810-4" alt="Coding on laptop" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>Dev Tools Suite</h3>
+              <p>CLI and UI tools that streamline developer workflows and CI.</p>
               <div class="card-actions">
                 <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
                 <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
               </div>
             </article>
-            <article class="card">
-              <h3>Project Three</h3>
-              <p>Include impact, metrics or anything that demonstrates value.</p>
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-3.jpg.avif 600w, assets/images/project-3.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-3.jpg 600w, assets/images/project-3.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-3.jpg.avif?v=20250810-4" alt="Mobile app UI" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>Mobile UI Kit</h3>
+              <p>Accessible, themeable UI components optimized for touch devices.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-4.jpg.avif 600w, assets/images/project-4.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-4.jpg 600w, assets/images/project-4.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-4.jpg.avif?v=20250810-4" alt="Cloud server and API concept" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>Cloud APIs</h3>
+              <p>Scalable REST APIs with caching, auth, and observability baked-in.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-5.jpg.avif 600w, assets/images/project-5.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-5.jpg 600w, assets/images/project-5.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-5.jpg.avif?v=20250810-4" alt="Frontend framework concept" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>Frontend System</h3>
+              <p>React + TypeScript monorepo with shared design tokens and docs.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="card card--glow" data-reveal data-tilt>
+              <div class="project-thumb">
+                  <picture>
+                    <source srcset="assets/images/project-6.jpg.avif 600w, assets/images/project-6.jpg.avif 900w" type="image/avif" />
+                    <source srcset="assets/images/project-6.jpg 600w, assets/images/project-6.jpg 900w" type="image/jpeg" />
+                    <img src="assets/images/project-6.jpg.avif?v=20250810-4" alt="Cybersecurity and DevOps concept" width="900" height="600" loading="lazy" decoding="async" sizes="(max-width: 900px) 92vw, 320px" />
+                  </picture>
+              </div>
+              <h3>SecOps Toolkit</h3>
+              <p>DevSecOps utilities for policy checks, secrets scanning, and audits.</p>
               <div class="card-actions">
                 <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
                 <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
@@ -102,29 +222,47 @@
       <section id="contact" class="section alt">
         <div class="container">
           <h2>Contact</h2>
-          <div class="grid projects-grid">
-            <article class="card span-4-centered">
+          <div class="grid contact-pro">
+            <aside class="card contact-aside card--glow" data-reveal>
+              <h3>Let’s connect</h3>
+              <p>Have a question or want to work together? I’d love to hear from you.</p>
+              <ul class="contact-list">
+                <li><strong>GitHub</strong> <a href="https://github.com/Abhimanyu-Kumar06" target="_blank" rel="noopener noreferrer">github.com/Abhimanyu-Kumar06</a></li>
+                <li><strong>LinkedIn</strong> <a href="https://www.linkedin.com/in/abhimanyu-kumar-640502178/" target="_blank" rel="noopener noreferrer">linkedin.com/in/abhimanyu-kumar-640502178</a></li>
+                <li><strong>Phone</strong> <a href="tel:+918210384330">+91 82103 84330</a></li>
+                <li><strong>Email</strong> <a href="mailto:abhimanyuka12@gmail.com">abhimanyuka12@gmail.com</a></li>
+                <li><strong>Location</strong> Kolkata, India</li>
+              </ul>
+              <div class="chips" aria-label="Preferred">
+                <li>Freelance</li>
+                <li>Full‑time</li>
+                <li>Consulting</li>
+              </div>
+            </aside>
+
+            <article class="card contact-form card--glow" data-reveal>
               <h3>Send a message</h3>
-              <p>Have a question or want to work together? Drop me a line.</p>
               <form id="contactForm" novalidate>
-                <div class="form-row">
-                  <label for="name">Name</label>
-                  <input id="name" name="name" type="text" required />
-                  <small class="error" aria-live="polite"></small>
+                <div class="grid contact-fields">
+                  <input type="text" name="company" id="company" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;" />
+                  <div class="field">
+                    <input id="name" name="name" type="text" placeholder=" " required aria-describedby="error-name" />
+                    <label for="name">Name</label>
+                    <small id="error-name" class="error" aria-live="polite"></small>
+                  </div>
+                  <div class="field">
+                    <input id="email" name="email" type="email" placeholder=" " required aria-describedby="error-email" />
+                    <label for="email">Email</label>
+                    <small id="error-email" class="error" aria-live="polite"></small>
+                  </div>
                 </div>
-                <div class="form-row">
-                  <label for="email">Email</label>
-                  <input id="email" name="email" type="email" required />
-                  <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="form-row">
+                <div class="field">
+                  <textarea id="message" name="message" rows="6" placeholder=" " required aria-describedby="error-message"></textarea>
                   <label for="message">Message</label>
-                  <textarea id="message" name="message" rows="5" required></textarea>
-                  <small class="error" aria-live="polite"></small>
+                  <small id="error-message" class="error" aria-live="polite"></small>
                 </div>
-                <div class="card-actions">
-                  <button type="submit" class="btn small primary">Send</button>
-                </div>
+                <button type="submit" class="btn primary block" data-submit>Send message</button>
+                <small class="muted" style="display:block; margin-top:0.6rem; color: var(--muted);">I’ll never share your information. Your message goes straight to my inbox.</small>
               </form>
             </article>
           </div>
@@ -132,18 +270,40 @@
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" role="contentinfo">
       <div class="container footer-inner">
-        <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+        <p>© <span id="year"></span> Abhimanyu Kumar. All rights reserved.</p>
         <div class="socials">
-          <a href="#" aria-label="GitHub">GitHub</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" aria-label="Twitter">Twitter</a>
+          <a href="https://github.com/Abhimanyu-Kumar06" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/abhimanyu-kumar-640502178/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+          <a href="mailto:abhimanyuka12@gmail.com" aria-label="Email">Email</a>
         </div>
         <button id="themeToggle" class="btn small" aria-pressed="false">Toggle Theme</button>
       </div>
     </footer>
 
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abhimanyu Kumar",
+      "jobTitle": "Software Developer",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kolkata",
+        "addressRegion": "IN"
+      },
+      "email": "mailto:abhimanyuka12@gmail.com",
+      "telephone": "+918210384330",
+      "url": "/",
+      "sameAs": [
+        "https://github.com/Abhimanyu-Kumar06",
+        "https://www.linkedin.com/in/abhimanyu-kumar-640502178/"
+      ]
+    }
+    </script>
     <script src="script.js"></script>
   </body>
   </html>

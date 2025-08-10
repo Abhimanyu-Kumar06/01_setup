@@ -2,13 +2,75 @@
 (function initMobileNav() {
   const toggleButton = document.querySelector('.nav-toggle');
   const nav = document.getElementById('nav');
+  const header = document.querySelector('.site-header');
   if (!toggleButton || !nav) return;
 
   toggleButton.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('open');
     toggleButton.setAttribute('aria-expanded', String(isOpen));
   });
+
+  // Shrink header on scroll
+  const updateHeader = () => {
+    const scrolled = (window.scrollY || document.documentElement.scrollTop || 0) > 6;
+    if (header) header.classList.toggle('scrolled', scrolled);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 })();
+// Scroll progress bar and back-to-top visibility
+(function initScrollUI() {
+  const progressBar = document.querySelector('.scroll-progress__bar');
+  const backToTop = document.getElementById('backToTop');
+  const update = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (backToTop) backToTop.classList.toggle('show', scrollTop > 300);
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  if (backToTop) backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+// Reveal on scroll using IntersectionObserver
+(function initRevealOnScroll() {
+  const items = document.querySelectorAll('[data-reveal]');
+  if (!('IntersectionObserver' in window) || items.length === 0) {
+    items.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach((el) => observer.observe(el));
+})();
+
+// Subtle 3D tilt on hover for elements with data-tilt
+(function initTilt() {
+  const items = document.querySelectorAll('[data-tilt]');
+  if (!items.length) return;
+  function handle(e) {
+    const rect = this.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const tiltX = (y - 0.5) * -6; // degrees
+    const tiltY = (x - 0.5) * 6;
+    this.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  }
+  function reset() { this.style.transform = ''; }
+  items.forEach((el) => {
+    el.addEventListener('mousemove', handle);
+    el.addEventListener('mouseleave', reset);
+  });
+})();
+
 
 // Smooth scroll for same-page anchors
 (function initSmoothScroll() {
@@ -26,6 +88,31 @@
   });
 })();
 
+// Highlight active nav link based on scroll position
+(function initActiveNavLink() {
+  const sectionIds = ['home', 'about', 'projects', 'skills', 'contact'];
+  const links = new Map(sectionIds.map((id) => [id, document.querySelector(`.site-nav a[href="#${id}"]`)]));
+
+  const handle = () => {
+    let active = 'home';
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 100 && rect.bottom > 100) { active = id; break; }
+    }
+    links.forEach((a, id) => {
+      if (!a) return;
+      const isActive = id === active;
+      a.classList.toggle('active', isActive);
+      if (isActive) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  };
+  handle();
+  window.addEventListener('scroll', handle, { passive: true });
+  window.addEventListener('resize', handle);
+})();
+
 // Contact form validation (client-side only)
 (function initFormValidation() {
   const form = document.getElementById('contactForm');
@@ -35,10 +122,11 @@
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   function setError(input, message) {
-    const row = input.closest('.form-row');
+    const row = input.closest('.field');
     const errorEl = row ? row.querySelector('.error') : null;
     if (errorEl) errorEl.textContent = message;
     input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    if (row) row.classList.toggle('valid', !message);
   }
 
   form.addEventListener('submit', async (e) => {
@@ -80,6 +168,7 @@
           name: form.name.value.trim(),
           email: form.email.value.trim(),
           message: form.message.value.trim(),
+          company: form.company ? String(form.company.value || '').trim() : '',
         }),
       });
 
@@ -97,7 +186,18 @@
       }
 
       form.reset();
-      alert('Thanks! Your message has been sent.');
+      // Toast success (non-blocking)
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.textContent = 'Thanks! Your message has been sent.';
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.add('show'));
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 250);
+      }, 2400);
     } catch (err) {
       alert('Sorry, something went wrong. Please try again later.');
       // eslint-disable-next-line no-console
@@ -245,4 +345,83 @@
   start();
 })();
 
+
+// Dynamically render projects with thumbnails
+(function renderProjects() {
+  const grid = document.getElementById('projectsGrid');
+  if (!grid || grid.getAttribute('data-static') === 'true') return; // static HTML present
+
+  const projects = [
+    {
+      title: 'Project One',
+      description: 'A brief description of your project, what it does and why it’s cool.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-1.jpg?v=20250810-1',
+    },
+    {
+      title: 'Project Two',
+      description: 'Another short summary that highlights the tech stack and outcomes.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-2.jpg?v=20250810-1',
+    },
+    {
+      title: 'Project Three',
+      description: 'Include impact, metrics or anything that demonstrates value.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-3.jpg?v=20250810-1',
+    },
+    {
+      title: 'Project Four',
+      description: 'Performance-focused feature with measurable impact and clean API.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-4.jpg?v=20250810-1',
+    },
+    {
+      title: 'Project Five',
+      description: 'A11y-first UI components with robust test coverage and docs.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-5.jpg?v=20250810-1',
+    },
+    {
+      title: 'Project Six',
+      description: 'Full-stack app integrating external APIs and realtime features.',
+      live: '#',
+      code: '#',
+      image: 'assets/images/project-6.jpg?v=20250810-1',
+    },
+  ];
+
+  const fragment = document.createDocumentFragment();
+  for (const p of projects) {
+    const article = document.createElement('article');
+    article.className = 'card';
+    article.innerHTML = `
+      <div class="project-thumb">
+        <img src="${p.image}" alt="${p.title} preview" loading="lazy" onerror="this.onerror=null;this.src='assets/images/project-1.svg'" />
+      </div>
+      <h3>${p.title}</h3>
+      <p>${p.description}</p>
+      <div class="card-actions">
+        <a href="${p.live}" class="btn small" target="_blank" rel="noopener">Live</a>
+        <a href="${p.code}" class="btn small" target="_blank" rel="noopener">Code</a>
+      </div>`;
+    fragment.appendChild(article);
+  }
+  grid.appendChild(fragment);
+})();
+
+// Register service worker for basic offline support
+(function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(err){
+      // eslint-disable-next-line no-console
+      console.warn('SW registration failed', err);
+    });
+  }
+})();
 
