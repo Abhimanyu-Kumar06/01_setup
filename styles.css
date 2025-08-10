@@ -382,10 +382,13 @@ h2 { font-size: clamp(1.4rem, 3.2vw, 2rem); margin: 0 0 1rem 0; }
 .contact-list li { margin: 0.35rem 0; color: var(--muted); }
 .contact-list a { color: var(--text); text-decoration: underline; }
 
-.contact-fields { grid-template-columns: repeat(12, 1fr); gap: 0.8rem; }
-.contact-fields .field:nth-child(1) { grid-column: span 6; }
-.contact-fields .field:nth-child(2) { grid-column: span 6; }
-@media (max-width: 700px) { .contact-fields .field { grid-column: 1 / -1 !important; } }
+/* Form field spacing */
+.contact-form .field {
+  margin-bottom: 0.8rem;
+}
+.contact-form .field:last-of-type {
+  margin-bottom: 1.2rem;
+}
 
 .field { position: relative; }
 .field input, .field textarea {

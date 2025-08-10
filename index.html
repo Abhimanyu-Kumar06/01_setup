@@ -243,18 +243,16 @@
             <article class="card contact-form card--glow" data-reveal>
               <h3>Send a message</h3>
               <form id="contactForm" novalidate>
-                <div class="grid contact-fields">
-                  <input type="text" name="company" id="company" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;" />
-                  <div class="field">
-                    <input id="name" name="name" type="text" placeholder=" " required aria-describedby="error-name" />
-                    <label for="name">Name</label>
-                    <small id="error-name" class="error" aria-live="polite"></small>
-                  </div>
-                  <div class="field">
-                    <input id="email" name="email" type="email" placeholder=" " required aria-describedby="error-email" />
-                    <label for="email">Email</label>
-                    <small id="error-email" class="error" aria-live="polite"></small>
-                  </div>
+                <input type="text" name="company" id="company" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;" />
+                <div class="field">
+                  <input id="name" name="name" type="text" placeholder=" " required aria-describedby="error-name" />
+                  <label for="name">Name</label>
+                  <small id="error-name" class="error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                  <input id="email" name="email" type="email" placeholder=" " required aria-describedby="error-email" />
+                  <label for="email">Email</label>
+                  <small id="error-email" class="error" aria-live="polite"></small>
                 </div>
                 <div class="field">
                   <textarea id="message" name="message" rows="6" placeholder=" " required aria-describedby="error-message"></textarea>
