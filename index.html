@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Name · Portfolio</title>
+    <meta name="description" content="Portfolio of Your Name — Software Developer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+   <body>
+     <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <header class="site-header">
+      <a class="logo" href="#home" aria-label="Go to home">YN</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav id="nav" class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-label="Hero">
+        <div class="hero-content container">
+          <h1>Hi, I'm Abhimanyu</h1>
+          <p>Software Developer specializing in building modern, accessible web applications.</p>
+          <div class="actions">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="mailto:you@example.com">Contact Me</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <h2>About</h2>
+          <p>
+            I’m a developer who loves turning complex problems into simple, beautiful
+            and intuitive solutions. I focus on performance, accessibility and clean
+            code.
+          </p>
+        </div>
+      </section>
+
+      <section id="projects" class="section alt">
+        <div class="container">
+          <h2>Projects</h2>
+          <div class="grid projects-grid">
+            <article class="card">
+              <h3>Project One</h3>
+              <p>A brief description of your project, what it does and why it’s cool.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Project Two</h3>
+              <p>Another short summary that highlights the tech stack and outcomes.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Project Three</h3>
+              <p>Include impact, metrics or anything that demonstrates value.</p>
+              <div class="card-actions">
+                <a href="#" class="btn small" target="_blank" rel="noopener">Live</a>
+                <a href="#" class="btn small" target="_blank" rel="noopener">Code</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="container">
+          <h2>Skills</h2>
+          <ul class="chips" aria-label="Skills">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>React</li>
+            <li>Git</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="section alt">
+        <div class="container">
+          <h2>Contact</h2>
+          <div class="grid projects-grid">
+            <article class="card span-4-centered">
+              <h3>Send a message</h3>
+              <p>Have a question or want to work together? Drop me a line.</p>
+              <form id="contactForm" novalidate>
+                <div class="form-row">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" required />
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="form-row">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" required />
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="form-row">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" rows="5" required></textarea>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="card-actions">
+                  <button type="submit" class="btn small primary">Send</button>
+                </div>
+              </form>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Your Name. All rights reserved.</p>
+        <div class="socials">
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#" aria-label="Twitter">Twitter</a>
+        </div>
+        <button id="themeToggle" class="btn small" aria-pressed="false">Toggle Theme</button>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+
